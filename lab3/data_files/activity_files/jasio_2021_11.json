@@ -1,0 +1,34 @@
+{
+  "name": "jasio",
+  "month": 11,
+  "year": 2021,
+  "frozen": false,
+
+  "entries": [
+    {
+      "date": "2021-11-01",
+      "code": "8A781NKA",
+      "subcode": "database",
+      "time": 45,
+      "description": "data import"
+    },
+
+    {
+      "date": "2021-11-01",
+      "code": "Project Angel",
+      "subcode": "",
+      "time": 120,
+      "description": "picie kawy"
+    },
+
+    {
+      "date": "2021-11-02",
+      "code": "8A781NKA",
+      "subcode": "",
+      "time": 45,
+      "description": "kompilacja"
+    }
+  ],
+
+  "accepted": []
+}

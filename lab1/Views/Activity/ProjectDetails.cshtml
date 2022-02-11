@@ -1,0 +1,86 @@
+@model dynamic
+
+@{
+    ViewData["Title"] = "Time Tracker - Project Details";
+}
+
+<div class="container">
+    <h3 style="margin-bottom: 1rem;">You are logged in as @Model.CurrentUser.Name</h3>
+    <div class="main-wrapper" style="grid-template-columns: auto;">
+        <div class="activities-wrapper">
+            @if (@Model.Project.Manager == @Model.CurrentUser.Name)
+            {
+                <h4>All activities for project <span style="font-weight: 900;">@Model.Project.Name</span> this month:</h4>
+            }
+            else
+            {
+                <h4>Your activities for project <span style="font-weight: 900;">@Model.Project.Name</span> this month:</h4>
+            }
+            @foreach (var userActivity in @Model.Activities)
+            {
+                @if ((@Model.Project.Manager == @Model.CurrentUser.Name || userActivity.Name == @Model.CurrentUser.Name) &&
+               userActivity.Entries.Count > 0)
+                {
+                    <div class="my-container" style="padding-left: 2rem; padding-right: 2rem;">
+                        <h5 style="margin-top: 0.75rem;">User: <span style="font-weight: 600;">@userActivity.Name</span></h5>
+                        <div class="activities-table" style="margin-bottom: 0.5rem;">
+                            <div class="activities-table-header">
+                                <div class="activities-table-cell">Date</div>
+                                <div class="activities-table-cell">Subactivity</div>
+                                <div class="activities-table-cell">Time</div>
+                                <div class="activities-table-cell">Description</div>
+                            </div>
+                            @foreach (var entry in userActivity.Entries)
+                            {
+                                <div class="activities-table-row">
+                                    <div class="activities-table-cell">@entry.Date</div>
+                                    <div class="activities-table-cell">@entry.Subcode</div>
+                                    <div class="activities-table-cell">@entry.Time</div>
+                                    <div class="activities-table-cell">@entry.Description</div>
+                                </div>
+                            }
+                        </div>
+                        <h5>Declared Time: @Model.DeclaredTimeByUser[userActivity.Name]</h5>
+                        @if (userActivity.Frozen)
+                        {
+                            @if (userActivity.AcceptedActivities.Count > 0)
+                            {
+                                <h5>Accepted Time: @userActivity.AcceptedActivities[0].Time</h5>
+
+                            }
+                            @if (@Model.Project.Manager == @Model.CurrentUser.Name && @Model.Project.Active)
+                            {
+                                <input type="button" value="Set accepted time" class="btn btn-primary"
+                    style="margin: 0.25rem 0 2rem; width: fit-content"
+                    onclick='window.location.href = "@Url.Action("SetAcceptedTimeForm", "Activity", new { Name = userActivity.Name, Code = @Model.Project.Code })";' />
+                            }
+                        }
+                        else
+                        {
+                            @if (@Model.Project.Manager == @Model.CurrentUser.Name && @Model.Project.Active)
+                            {
+                                <h6 style="margin-bottom 1rem;">You can't set Accepted Time until this user has frozen their entries for
+                                    this month</h6>
+                            }
+                        }
+                    </div>
+                }
+            }
+            @if (@Model.Project.Manager == @Model.CurrentUser.Name)
+            {
+                <div class="my-container" style="padding-left:2rem;">
+                    <h4 style="margin-top: 1rem;">Project stats for this month</h4>
+                    @* <h5>Project Budget: @Model.Project.Budget</h5> *@
+                    <h5>Total time declared: @Model.TotalTime</h5>
+                    <h5>Accepted time: @Model.AcceptedTime</h5>
+                    @* <h5>Balance: @(Model.Project.Budget - Model.AcceptedTime)</h5> *@
+                </div>
+                <input type="button" value="Show All Time Details" class="btn btn-secondary"
+                style="margin-top: 0.5rem; width: fit-content;"
+                onclick='window.location.href = "@Url.Action("ProjectDetailsAllTime", "Activity", new { Code = Model.Project.Code })";' />
+            }
+            <input type="button" value="Back" class="btn btn-secondary" style="margin-top: 0.5rem; width: fit-content;"
+                onclick='window.location.href = "@Url.Action("Index", "Activity")";' />
+        </div>
+    </div>
+</div>

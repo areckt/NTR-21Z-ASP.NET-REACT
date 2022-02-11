@@ -1,0 +1,40 @@
+@model dynamic
+
+@{
+    ViewData["Title"] = "Time Tracker - Add Activity";
+}
+<div class="container">
+    <h4>Create new activity</h4>
+    <div class="constainer">
+        <form asp-action="AddActivity">
+            <div class="form-group">
+                <label for="Day">Day of month</label>
+                <input type="number" min="1" max="31" name="Day" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="Code">Project</label>
+                <select name="Code" class="form-control">
+                    @foreach (var project in @Model.Projects)
+                    {
+                        <option value="@project.Code">@project.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Subcode">Subactivity (optional)</label>
+                <input name="Subcode" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="Time">Declared Time</label>
+                <input type="number" min="0" name="Time" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="Description">Description (optional)</label>
+                <input name="Description" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

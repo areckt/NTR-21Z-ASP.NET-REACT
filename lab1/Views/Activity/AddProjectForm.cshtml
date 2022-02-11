@@ -1,0 +1,30 @@
+@{
+    ViewData["Title"] = "Time Tracker - New Project";
+}
+
+<div class="container">
+    <h4>Create new project</h4>
+    <div class="constainer">
+        <form asp-action="AddProject">
+            <div class="form-group">
+                <label for="Name">Name</label>
+                <input name="Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="Budget">Budget</label>
+                <input type="number" name="Budget" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="Subact1">Subactivity #1</label>
+                <input name="Subact1" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="Subact2">Subactivity #2</label>
+                <input name="Subact2" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+{
+  "name": "stasio",
+  "month": 11,
+  "year": 2021,
+  "frozen": false,
+
+  "entries": [
+    {
+      "date": "2021-11-01",
+      "code": "8A781NKA",
+      "subcode": "other",
+      "time": 25,
+      "description": "looking at screen"
+    },
+
+    {
+      "date": "2021-11-01",
+      "code": "Project Angel",
+      "subcode": "",
+      "time": 45,
+      "description": "bug fixing"
+    },
+
+    {
+      "date": "2021-11-03",
+      "code": "8A781NKA",
+      "subcode": "",
+      "time": 12,
+      "description": ""
+    }
+  ],
+
+  "accepted": []
+}

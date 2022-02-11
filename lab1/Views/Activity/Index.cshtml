@@ -1,0 +1,128 @@
+@* @using MultipleModelInOneView; *@
+@model dynamic
+
+@{
+    ViewData["Title"] = "Time Tracker - " + @Model.CurrentUser.Name;
+}
+
+<div class="container" style="max-width: 100vw;">
+    <h3 style="margin-bottom: 1rem;">You are logged in as @Model.CurrentUser.Name</h3>
+    <div class="main-wrapper">
+        <div class="projects-wrapper">
+            <h5>All projects:</h5>
+            <div class="projects-table">
+                <div class="projects-table-header">
+                    <div class="projects-table-cell">Code</div>
+                    <div class="projects-table-cell">Manager</div>
+                    <div class="projects-table-cell">Name</div>
+                    <div class="projects-table-cell">Budget</div>
+                    <div class="projects-table-cell">Active</div>
+                    <div class="projects-table-cell">Subactivities</div>
+                    <div class="projects-table-cell">Details</div>
+                    <div class="projects-table-cell">Edit</div>
+                    <div class="projects-table-cell">Close</div>
+                </div>
+                @foreach (var project in @Model.Projects)
+                {
+                    <div class="projects-table-row">
+                        <div class="projects-table-cell">@project.Code</div>
+                        <div class="projects-table-cell">@project.Manager</div>
+                        <div class="projects-table-cell">@project.Name</div>
+                        <div class="projects-table-cell">@project.Budget</div>
+                        <div class="projects-table-cell">@project.Active</div>
+                        <div class="projects-table-cell">@foreach (var item in @project.Subactivities)
+                            {
+                                @(item+" ")
+                            }</div>
+
+                        <div class="projects-table-cell"><input type="button" value="🛈" class="btn btn-secondary"
+                            style="font-size: 14px; line-height: 0; height: 18px; width: fit-content;"
+                            onclick='window.location.href = "@Url.Action("ProjectDetails", "Activity", new { Code = project.Code })";' />
+                        </div>
+                        @if (@Model.CurrentUser.Name == @project.Manager && @project.Active)
+                        {
+                            <div class="projects-table-cell"><input type="button" value="•••" class="btn btn-primary"
+                            style="font-size: 14px; line-height: 0; height: 18px; width: fit-content;"
+                            onclick='window.location.href = "@Url.Action("EditProjectForm", "Activity", new { Code = project.Code, Name = project.Name, Budget = project.Budget })";' />
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="projects-table-cell"> </div>
+                        }
+
+
+
+                        @if (@Model.CurrentUser.Name == @project.Manager && @project.Active)
+                        {
+                            <div class="projects-table-cell"><input type="button" value="X" class="btn btn-danger"
+                            style="font-size: 14px; line-height: 0; height: 18px; width: fit-content;"
+                            onclick='window.location.href = "@Url.Action("CloseProject", "Activity", new { Code = project.Code })";' />
+                            </div>
+                        }
+                        else if (@Model.CurrentUser.Name == @project.Manager && !@project.Active)
+                        {
+                            <div class="projects-table-cell">
+                                <input type="button" value="Closed" class="btn disabled"
+                            style="font-size: 14px; line-height: 0; height: 18px; width: fit-content;" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="projects-table-cell"> </div>
+                        }
+                    </div>
+                }
+            </div>
+            <a asp-controller="Activity" asp-action="AddProjectForm">+ Add new project</a>
+        </div>
+        <div class="activities-wrapper">
+            <h5>Your current activities:</h5>
+            <div class="activities-table">
+                <div class="activities-table-header">
+                    <div class="activities-table-cell">Date</div>
+                    <div class="activities-table-cell">Project</div>
+                    <div class="activities-table-cell">Subactivity</div>
+                    <div class="activities-table-cell">Time</div>
+                    <div class="activities-table-cell">Description</div>
+                    <div class="activities-table-cell">Delete</div>
+                </div>
+                @foreach (var entry in @Model.UserActivity.Entries)
+                {
+                    <div class="activities-table-row">
+                        <div class="activities-table-cell">@entry.Date</div>
+                        <div class="activities-table-cell">@entry.Code</div>
+                        <div class="activities-table-cell">@entry.Subcode</div>
+                        <div class="activities-table-cell">@entry.Time</div>
+                        <div class="activities-table-cell">@entry.Description</div>
+                        @if (@Model.UserActivity.Frozen)
+                        {
+                            <div class="activities-table-cell"> </div>
+                        }
+                        else
+                        {
+                            <div class="activities-table-cell">
+                                <input type="button" value="X" class="btn btn-danger"
+                            style="font-size: 14px; line-height: 0; height: 18px; width: fit-content;"
+                            onclick='window.location.href = "@Url.Action("DeleteActivity", "Activity", new { Date = entry.Date, Code = entry.Code, Time = entry.Time })";' />
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+            @if (!@Model.UserActivity.Frozen)
+            {
+                <a asp-controller="Activity" asp-action="AddActivityForm" style="display: block;">+ Add new activity</a>
+                <input type="button" value="Freeze entries for this month" class="btn btn-danger"
+                style="margin-top: 0.5rem; width: fit-content;"
+                onclick='window.location.href = "@Url.Action("FreezeMonth", "Activity")";' />
+            }
+            else
+            {
+                <button class="btn disabled" style="margin-top: 0.5rem; width: fit-content;">
+                    Month frozen
+                </button>
+            }
+        </div>
+    </div>
+</div>

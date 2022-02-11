@@ -1,0 +1,35 @@
+[
+  {
+    "month": 1,
+    "year": 2022,
+    "user": "jasio",
+    "frozen": false,
+    "projectInfo": [
+      { "code": 1, "accepted": 0 },
+      { "code": 2, "accepted": 0 },
+      { "code": 3, "accepted": 0 }
+    ]
+  },
+  {
+    "month": 1,
+    "year": 2022,
+    "user": "stasio",
+    "frozen": false,
+    "projectInfo": [
+      { "code": 1, "accepted": 0 },
+      { "code": 2, "accepted": 0 },
+      { "code": 3, "accepted": 0 }
+    ]
+  },
+  {
+    "month": 1,
+    "year": 2022,
+    "user": "basia",
+    "frozen": false,
+    "projectInfo": [
+      { "code": 1, "accepted": 0 },
+      { "code": 2, "accepted": 0 },
+      { "code": 3, "accepted": 0 }
+    ]
+  }
+]

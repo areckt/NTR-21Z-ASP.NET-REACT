@@ -1,0 +1,26 @@
+@model dynamic
+
+@{
+    ViewData["Title"] = "Time Tracker - Edit Project";
+}
+
+<div class="container">
+    <h4>Edit the project</h4>
+    <div class="constainer">
+        <form asp-action="EditProject">
+            <div class="form-group">
+                <label for="Name">Name (previously: <span style="font-weight:600;">@Model.Name</span>)</label>
+                <input name="Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="Budget">Budget (previously: <span style="font-weight:600;">@Model.Budget</span>)</label>
+                <input type="number" name="Budget" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+        <input type="button" value="Back" class="btn btn-secondary" style="margin-top: 0.5rem; width: fit-content"
+            onclick='window.location.href = "@Url.Action("Index", "Activity")";' />
+    </div>
+</div>

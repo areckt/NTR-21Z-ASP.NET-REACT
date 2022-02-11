@@ -1,0 +1,20 @@
+{
+  "projects": [
+    {
+      "code": "8A781NKA",
+      "manager": "jasio",
+      "name": "8A781NKA",
+      "budget": 125,
+      "active": true,
+      "subactivities": [{ "code": "database" }, { "code": "other" }]
+    },
+    {
+      "code": "Project Angel",
+      "manager": "stasio",
+      "name": "Project Angel",
+      "budget": 420,
+      "active": true,
+      "subactivities": []
+    }
+  ]
+}

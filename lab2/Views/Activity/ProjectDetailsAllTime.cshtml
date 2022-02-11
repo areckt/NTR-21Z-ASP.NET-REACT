@@ -1,0 +1,50 @@
+@model dynamic
+
+@{
+    ViewData["Title"] = "Time Tracker - Project Details";
+}
+
+<div class="container">
+    <h3 style="margin-bottom: 1rem;">You are logged in as @Model.CurrentUser</h3>
+    <div class="main-wrapper" style="grid-template-columns: auto;">
+        <div class="activities-wrapper">
+            <h4>All activities for project <span style="font-weight: 900;">@Model.Project.Name</span>:</h4>
+            @foreach (var user in @Model.AllUsers)
+            {
+                @if (@Model.Activities[user.Name].Count > 0)
+                {
+                    <div class="my-container" style="padding-left: 2rem; padding-right: 2rem;">
+                        <h5 style="margin-top: 0.75rem;">User: <span style="font-weight: 600;">@user.Name</span></h5>
+                        <div class="activities-table" style="margin-bottom: 0.5rem;">
+                            <div class="activities-table-header">
+                                <div class="activities-table-cell">Date</div>
+                                <div class="activities-table-cell">Subactivity</div>
+                                <div class="activities-table-cell">Time</div>
+                                <div class="activities-table-cell">Description</div>
+                            </div>
+                            @foreach (var entry in @Model.Activities[user.Name])
+                            {
+                                <div class="activities-table-row">
+                                    <div class="activities-table-cell">@entry.Day / @entry.Month / @entry.Year</div>
+                                    <div class="activities-table-cell">@entry.Subcode</div>
+                                    <div class="activities-table-cell">@entry.Time</div>
+                                    <div class="activities-table-cell">@entry.Description</div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            }
+
+            <div class="my-container" style="padding-left:2rem;">
+                <h4 style="margin-top: 1rem;">All-time project stats</h4>
+                <h5>Project Budget: @Model.Project.Budget</h5>
+                <h5>Total time declared: @Model.TotalTime</h5>
+                <h5>Accepted time: @Model.AcceptedTime</h5>
+                <h5>Balance: @(Model.Project.Budget - Model.AcceptedTime)</h5>
+            </div>
+            <input type="button" value="Back" class="btn btn-secondary" style="margin-top: 0.5rem; width: fit-content;"
+                onclick='window.location.href = "@Url.Action("Index", "Activity")";' />
+        </div>
+    </div>
+</div>

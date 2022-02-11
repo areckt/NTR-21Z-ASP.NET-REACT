@@ -1,0 +1,26 @@
+﻿@using lab1.Models;
+@model List<lab1.Models.User>;
+
+@{
+    ViewData["Title"] = "Time Tracker";
+}
+
+<div class="text-center">
+    <h1 class="display-4" style="margin-bottom: 2rem;">Welcome to time tracker app</h1>
+
+    <h3 style="margin-bottom: 1rem;">Select user or create a new one.</h3>
+    <div class="btn-group" style="max-width: 50ch; margin-bottom: 2rem;">
+        <form>
+            @foreach (var user in Model)
+            {
+                <input type="button" value=@user.Name class="btn btn-primary" style="margin: 2px 3px;"
+                onclick='window.location.href = "@Url.Action("Login", "Home", new { Username = user.Name })";' />
+            }
+        </form>
+    </div>
+
+    <div class="container">
+        <a asp-area="" asp-controller="Home" asp-action="AddUserForm">Click here to add new user</a>
+    </div>
+
+</div>

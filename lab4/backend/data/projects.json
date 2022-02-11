@@ -1,0 +1,23 @@
+[
+  {
+    "code": 1,
+    "manager": "jasio",
+    "name": "Batman",
+    "budget": 123,
+    "active": true
+  },
+  {
+    "code": 2,
+    "manager": "stasio",
+    "name": "Angel",
+    "budget": 64,
+    "active": true
+  },
+  {
+    "code": 3,
+    "manager": "basia",
+    "name": "Stratos",
+    "budget": 75,
+    "active": true
+  }
+]
